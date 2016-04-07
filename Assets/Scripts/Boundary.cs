@@ -10,6 +10,7 @@ public class Boundary : MonoBehaviour {
     public Transform bottomCollider;
     public Transform leftCollider;
     public Transform rightCollider;
+    public Transform goal;
     private Vector3 cameraPos;
     // Use this for initialization
     void Start()
@@ -19,24 +20,28 @@ public class Boundary : MonoBehaviour {
         bottomCollider = new GameObject().transform;
         rightCollider = new GameObject().transform;
         leftCollider = new GameObject().transform;
+        goal = new GameObject().transform;
 
         //Name our objects 
         topCollider.name = "TopCollider";
         bottomCollider.name = "BottomCollider";
         rightCollider.name = "RightCollider";
         leftCollider.name = "LeftCollider";
+        goal.name = "Goal";
 
         //Add the colliders
         topCollider.gameObject.AddComponent<BoxCollider2D>();
         bottomCollider.gameObject.AddComponent<BoxCollider2D>();
         rightCollider.gameObject.AddComponent<BoxCollider2D>();
         leftCollider.gameObject.AddComponent<BoxCollider2D>();
+        goal.gameObject.AddComponent<BoxCollider2D>();
 
         //Make them the child of whatever object this script is on, preferably on the Camera so the objects move with the camera without extra scripting
         topCollider.parent = transform;
         bottomCollider.parent = transform;
         rightCollider.parent = transform;
         leftCollider.parent = transform;
+        goal.parent = transform;
 
         //Generate world space point information for position and scale calculations
         cameraPos = Camera.main.transform.position;
@@ -48,11 +53,18 @@ public class Boundary : MonoBehaviour {
         rightCollider.position = new Vector3(cameraPos.x + screenSize.x + (rightCollider.localScale.x * 0.5f), cameraPos.y, zPosition);
         leftCollider.localScale = new Vector3(colDepth, screenSize.y * 2, colDepth);
         leftCollider.position = new Vector3(cameraPos.x - screenSize.x - (leftCollider.localScale.x * 0.5f), cameraPos.y, zPosition);
-        topCollider.localScale = new Vector3(screenSize.x * 2, colDepth, colDepth);
-        topCollider.position = new Vector3(cameraPos.x, cameraPos.y + screenSize.y + (topCollider.localScale.y * 0.1f), zPosition);
+        topCollider.localScale = new Vector3(screenSize.x * 2, 0.1f, colDepth);
+        topCollider.position = new Vector3(cameraPos.x, cameraPos.y + screenSize.y + (topCollider.localScale.y * 0.1f) - colDepth, zPosition);
         bottomCollider.localScale = new Vector3(screenSize.x * 2, colDepth, colDepth);
         bottomCollider.position = new Vector3(cameraPos.x, cameraPos.y - screenSize.y - (bottomCollider.localScale.y * 0.5f), zPosition);
+        goal.localScale = new Vector3(screenSize.x * 2, colDepth, colDepth);
+        goal.position = new Vector3(cameraPos.x, cameraPos.y + screenSize.y + (topCollider.localScale.y * 0.1f) - colDepth/3, zPosition);
 
-        
+        //Set the is Trigger setting to true, so that an object enters the goal we can enter the function on onTriggerEnter2D.
+        goal.GetComponent<BoxCollider2D>().isTrigger = true;
+
+        goal.gameObject.AddComponent<MatchFound>();
+            
     }
+
 }

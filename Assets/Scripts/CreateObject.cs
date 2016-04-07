@@ -37,6 +37,10 @@ public class CreateObject : MonoBehaviour
         // Add the ClickAndDrag script to our object
         matchObject.AddComponent<ClickAndDrag>();
 
+        // Set tag to match
+        matchObject.tag = "Match";
+
 
     }
+
 }

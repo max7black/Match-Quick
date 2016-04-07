@@ -251,6 +251,7 @@ MonoBehaviour:
   bottomCollider: {fileID: 0}
   leftCollider: {fileID: 0}
   rightCollider: {fileID: 0}
+  goal: {fileID: 0}
 --- !u!114 &1807417861
 MonoBehaviour:
   m_ObjectHideFlags: 0

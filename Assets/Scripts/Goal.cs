@@ -32,6 +32,14 @@ public class Goal : MonoBehaviour {
         goal.localScale = new Vector3(screenSize.x * 2, colDepth, colDepth);
         goal.position = new Vector3(cameraPos.x, cameraPos.y + screenSize.y + (goal.localScale.y * 0.1f), zPosition);
 
+        //Set the is Trigger setting to true, so that an object enters the goal we can enter the function on onTriggerEnter2D.
+        goal.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+
+    }
+
+    void onTriggerEnter2D(Collider2D collider)
+    {
+        
     }
 
 }
