@@ -7,7 +7,7 @@ public class CreateObject : MonoBehaviour
     public const int numberOfObjects = 5;
     private int theMatch;
     private Sprite[] sprite;               // variable for the sprite we want
-    private GameObject[] matchObjects;     // variable for the object we are creating
+    public static GameObject[] matchObjects;     // variable for the object we are creating
     private string[] spriteLocations = { "Sprites/Squares/Red-square", "Sprites/Squares/Blue-square",       // These are the locations of our sprite images
         "Sprites/Squares/Green-square", "Sprites/Squares/Yellow-square", "Sprites/Squares/Blue-square"};
 
@@ -62,9 +62,6 @@ public class CreateObject : MonoBehaviour
 
         // Choose a random object to be the Match
         matchObjects[theMatch].tag = "Match";
-        
-
-
     }
 
 }
