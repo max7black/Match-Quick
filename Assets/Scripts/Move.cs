@@ -25,13 +25,22 @@ public class Move : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision)
     {
         var name = collision.gameObject.name;
-        if (name == "RightCollider" || name == "LeftCollider") {
+        var tag = collision.gameObject.tag;
+        
+        if (name == "RightCollider" || name == "LeftCollider")
+        {
             x_velocity *= -1;
         }
         if (name == "TopCollider" || name == "BottomCollider")
         {
             y_velocity *= -1;
         }
-
+        if (tag == "Match" || tag == "NotMatch")
+        {
+            //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(50f * new Vector2(Input.GetAxis("Horizontal")*-1, Input.GetAxis("Vertical")*-1));
+            x_velocity = x_velocity + (-1*(Input.GetAxis("Horizontal")));
+            y_velocity = y_velocity + (-1*(Input.GetAxis("Vertical")));
+            Debug.Log("collision with " + collision.gameObject.name);
+        }
     }
 }

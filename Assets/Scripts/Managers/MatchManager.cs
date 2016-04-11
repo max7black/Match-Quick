@@ -35,7 +35,7 @@ public class MatchManager : MonoBehaviour {
 
         }
         for (int i = 0; i < CreateObject.numberOfObjects; i++) {
-            CreateObject.matchObjects
+            
         }
     }
 

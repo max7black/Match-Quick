@@ -9,7 +9,7 @@ public class CreateObject : MonoBehaviour
     private Sprite[] sprite;               // variable for the sprite we want
     public static GameObject[] matchObjects;     // variable for the object we are creating
     private string[] spriteLocations = { "Sprites/Squares/Red-square", "Sprites/Squares/Blue-square",       // These are the locations of our sprite images
-        "Sprites/Squares/Green-square", "Sprites/Squares/Yellow-square", "Sprites/Squares/Blue-square"};
+        "Sprites/Squares/Green-square", "Sprites/Squares/Yellow-square", "Sprites/Squares/Orange-square"};
 
     void Awake()
     {
@@ -58,6 +58,7 @@ public class CreateObject : MonoBehaviour
             {
                 matchObjects[i].tag = "NotMatch";
             }
+            
         }
 
         // Choose a random object to be the Match
