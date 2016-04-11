@@ -17,7 +17,7 @@ public class Move : MonoBehaviour {
     // Moves on the screen the object based on the x_velocity and y_velocity
     void Update()
     {   
-        transform.position = new Vector3(transform.position.x + x_velocity, transform.position.y + y_velocity, transform.position.z);
+        //transform.position = new Vector3(transform.position.x + x_velocity, transform.position.y + y_velocity, transform.position.z);
     }
 
     // If we hit the left or right boundary, invert x direction.
