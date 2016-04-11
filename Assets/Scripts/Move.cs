@@ -11,7 +11,7 @@ public class Move : MonoBehaviour {
 
         x_velocity = Random.Range(-0.10f, 0.10f);
         y_velocity = Random.Range(-0.10f, 0.10f);
-        transform.position = new Vector3(Random.Range(-15.0f, 15.0f), Random.Range(-4.0f, 4.0f), 0);
+        
     }
 
     // Moves on the screen the object based on the x_velocity and y_velocity

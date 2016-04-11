@@ -8,6 +8,7 @@ public class MatchFound : MonoBehaviour {
     {
         if (collider2D.gameObject.tag == "Match")
         {
+            ScoreManager.score++;
             Destroy(collider2D.gameObject);
         }
     }
