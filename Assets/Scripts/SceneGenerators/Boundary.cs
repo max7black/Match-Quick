@@ -5,13 +5,13 @@ public class Boundary : MonoBehaviour {
 
     public float colDepth = 4f;
     public float zPosition = 0f;
-    private Vector2 screenSize;
+    public Vector2 screenSize;
+    public Vector3 cameraPos;
     public GameObject topCollider;
     public Transform bottomCollider;
     public Transform leftCollider;
     public Transform rightCollider;
     public GameObject goal;
-    private Vector3 cameraPos;
     private Sprite spriteGoal;               // variable for the sprite we want for the goal
                                          
 

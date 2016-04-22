@@ -5,9 +5,14 @@ using System.Collections;
 public class CreateObject : MonoBehaviour
 {
     public const int numberOfObjects = 5;
+    public float colDepth = 4f;
+    public float zPosition = 0f;
+    public Vector2 screenSize;
+    public Vector3 cameraPos;
+    private float scale;
     private int theMatch;
-    private Sprite[] sprite;               // variable for the sprite we want
-    public static GameObject[] matchObjects;     // variable for the object we are creating
+    private Sprite[] sprite;                                     // variable for the sprite we want
+    public static GameObject[] matchObjects;                     // variable for the object we are creating
     private string[] spriteLocations = { "Sprites/Squares/Red-square", "Sprites/Squares/Blue-square",       // These are the locations of our sprite images
         "Sprites/Squares/Green-square", "Sprites/Squares/Yellow-square", "Sprites/Squares/Orange-square"};
 
@@ -25,6 +30,9 @@ public class CreateObject : MonoBehaviour
 
     void Start()
     {
+        screenSize = gameObject.GetComponent<Boundary>().screenSize;
+        cameraPos = gameObject.GetComponent<Boundary>().cameraPos;
+        scale = screenSize.x / screenSize.y;
 
         // initalize the object 
         matchObjects = new GameObject[numberOfObjects];
@@ -39,8 +47,13 @@ public class CreateObject : MonoBehaviour
             matchObjects[i].GetComponent<SpriteRenderer>().sprite = sprite[i];
 
 
-            // Change the spawn loaction to be random      
-            matchObjects[i].transform.position = new Vector3(Random.Range(-21.0f, 21.0f), Random.Range(-3.5f, 0.0f), 0);
+            // Change the spawn location to be random in the camera view      
+            matchObjects[i].transform.position = new Vector3(Random.Range(cameraPos.x-(3*screenSize.x/4), cameraPos.x+(3*screenSize.x/4)), 
+                Random.Range(cameraPos.y-(3*screenSize.y/4),cameraPos.y), 0);
+      
+
+            // Change the local scale of object to be approriately sized for the screen
+            matchObjects[i].transform.localScale = new Vector3(scale/numberOfObjects, scale/numberOfObjects, colDepth);
 
             // Add the Collider to our object
             matchObjects[i].AddComponent<PolygonCollider2D>();

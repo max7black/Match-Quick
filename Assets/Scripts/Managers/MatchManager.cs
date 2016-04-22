@@ -15,7 +15,12 @@ public class MatchManager : MonoBehaviour {
     {
         if (collider2D.gameObject.tag == "Match")
         {
-            ScoreManager.score++;
+            if (ScoreManager.score == 0)
+            {
+                ScoreManager.score = 1;
+            }
+            ScoreManager.score = ScoreManager.score * (int)(100 * gameObject.GetComponent<TimeManager>().timeLeft);
+            
             objectDestroyed = true;
             destroyedName = collider2D.gameObject.name;
             for (int i = 0; i < CreateObject.numberOfObjects; i++)
