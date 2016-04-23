@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 using System.Collections;
 
 
 public class CreateObject : MonoBehaviour
 {
-    public const int numberOfObjects = 5;
+    public static int numberOfObjects = 5;          // number of the objects we want to create to be matched
     public float colDepth = 4f;
     public float zPosition = 0f;
     public Vector2 screenSize;
     public Vector3 cameraPos;
     private float scale;
     private int theMatch;
-    private Sprite[] sprite;                                     // variable for the sprite we want
-    public static GameObject[] matchObjects;                     // variable for the object we are creating
+    private Sprite[] sprite;                                                // variable for the sprite we want
+    public static List<GameObject> matchObjects = new List<GameObject>();  // variable for the object we are creating
     private string[] spriteLocations = { "Sprites/Squares/Red-square", "Sprites/Squares/Blue-square",       // These are the locations of our sprite images
         "Sprites/Squares/Green-square", "Sprites/Squares/Yellow-square", "Sprites/Squares/Orange-square"};
 
@@ -30,17 +31,18 @@ public class CreateObject : MonoBehaviour
 
     void Start()
     {
-        screenSize = gameObject.GetComponent<Boundary>().screenSize;
+        // Get the screen size and camera position 
+        screenSize = gameObject.GetComponent<Boundary>().screenSize;        
         cameraPos = gameObject.GetComponent<Boundary>().cameraPos;
         scale = screenSize.x / screenSize.y;
 
         // initalize the object 
-        matchObjects = new GameObject[numberOfObjects];
         for (int i = 0; i < numberOfObjects; i++)
         {
-            matchObjects[i] = new GameObject();
+            matchObjects.Add(new GameObject());
             // Name our objects
             matchObjects[i].name = "Object " + i;
+            
 
             // Assign the sprite we want to the object
             matchObjects[i].AddComponent<SpriteRenderer>();

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class TimeManager : MonoBehaviour {
 
-    public float timeLeft;
+    public static float timeLeft;
     Text text;
 
     // Use this for initialization
@@ -21,7 +22,7 @@ public class TimeManager : MonoBehaviour {
         text.text = "Time Left: " + timeLeft.ToString("F2");
 //        if (timeLeft < 0)
 //        {
-//            Application.LoadLevel("gameOver");
+//            SceneManager.LoadScene("GameOver");
 //        }
     }
 }
