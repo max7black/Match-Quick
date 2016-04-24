@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MatchManager : MonoBehaviour {
     private int removedIndex;    // the index in the list of the object we are going to remove from the list
-    private int theMatch;       // random number that will decide the new object that has the tag "Match"
+    private int theMatchIndex;       // random number that will decide the new object that has the tag "Match"
     public static Vector3 cameraPos;
 
 
@@ -29,6 +29,7 @@ public class MatchManager : MonoBehaviour {
             // Removes object from the list and destorys the object 
             removedIndex = CreateObject.matchObjects.IndexOf(collider2D.gameObject);       
             CreateObject.matchObjects.RemoveAt(removedIndex);
+            CreateObject.sprite.RemoveAt(removedIndex);
             CreateObject.numberOfObjects -= 1;
             Destroy(collider2D.gameObject);
 
@@ -41,13 +42,14 @@ public class MatchManager : MonoBehaviour {
             collider2D.gameObject.transform.position = new Vector3(cameraPos.x, cameraPos.y, 0);
 
         }
-        theMatch = Random.Range(0, CreateObject.numberOfObjects); // pick a random object to be the new match
+        theMatchIndex = Random.Range(0, CreateObject.numberOfObjects); // pick a random object to be the new match
         for (int i = 0; i < CreateObject.numberOfObjects; i++) {
-            if (i == theMatch)
+            if (i == theMatchIndex)
             {
                 CreateObject.matchObjects[i].tag = "Match";
             }
         }
+        CreateObject.theMatch.GetComponent<SpriteRenderer>().sprite = CreateObject.sprite[theMatchIndex];
     }
 
 }

@@ -7,7 +7,7 @@ public class Boundary : MonoBehaviour {
     public float zPosition = 0f;
     public Vector2 screenSize;
     public Vector3 cameraPos;
-    public GameObject topCollider;
+    public static GameObject topCollider;
     public Transform bottomCollider;
     public Transform leftCollider;
     public Transform rightCollider;

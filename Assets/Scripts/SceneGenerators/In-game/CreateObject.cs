@@ -11,22 +11,23 @@ public class CreateObject : MonoBehaviour
     public Vector2 screenSize;
     public Vector3 cameraPos;
     private float scale;
-    private int theMatch;
-    private Sprite[] sprite;                                                // variable for the sprite we want
+    private int theMatchIndex;
+    public static List<Sprite> sprite = new List<Sprite>();                                                // variable for the sprite we want
     public static List<GameObject> matchObjects = new List<GameObject>();  // variable for the object we are creating
+    public static GameObject theMatch;
     private string[] spriteLocations = { "Sprites/Squares/Red-square", "Sprites/Squares/Blue-square",       // These are the locations of our sprite images
         "Sprites/Squares/Green-square", "Sprites/Squares/Yellow-square", "Sprites/Squares/Orange-square"};
 
     void Awake()
     {
         // load the sprite we want in our sprite variable
-        sprite = new Sprite[numberOfObjects];
         for (int i = 0; i < numberOfObjects; i++)
         {
+            sprite.Add(new Sprite());
             sprite[i] = Resources.Load<Sprite>(spriteLocations[i]);
         }
-        // Set theMatch equal to random nubmer between 0 and the number of objects
-        theMatch = Random.Range(0, numberOfObjects);
+        // Set theMatchIndex equal to random nubmer between 0 and the number of objects
+        theMatchIndex = Random.Range(0, numberOfObjects);
     }
 
     void Start()
@@ -69,7 +70,7 @@ public class CreateObject : MonoBehaviour
 
             // Add the ClickAndDrag script to our object
             matchObjects[i].AddComponent<ClickAndDrag>();
-            if (i != theMatch)
+            if (i != theMatchIndex)
             {
                 matchObjects[i].tag = "NotMatch";
             }
@@ -77,7 +78,18 @@ public class CreateObject : MonoBehaviour
         }
 
         // Choose a random object to be the Match
-        matchObjects[theMatch].tag = "Match";
+        matchObjects[theMatchIndex].tag = "Match";
+
+        // Make a copy of the matchObjects sprite, at index TheMatchIndex, and store it in theMatch
+        theMatch = new GameObject();
+        theMatch.name = "theMatch";
+        theMatch.AddComponent<SpriteRenderer>();
+        theMatch.GetComponent<SpriteRenderer>().sprite = sprite[theMatchIndex];                             // put the correct sprite on the match
+        theMatch.transform.position = new Vector3(cameraPos.x, cameraPos.y + screenSize.y - (Boundary.topCollider.transform.position.y), 0);      // put theMatch in the middle of the goal
+
+
+
+
     }
 
 }

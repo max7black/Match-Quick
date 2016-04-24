@@ -20,9 +20,9 @@ public class TimeManager : MonoBehaviour {
     {
         timeLeft -= Time.deltaTime;
         text.text = "Time Left: " + timeLeft.ToString("F2");
-//        if (timeLeft < 0)
-//        {
-//            SceneManager.LoadScene("GameOver");
-//        }
+        if (timeLeft < 0)
+       {
+            SceneManager.LoadScene("GameOver");
+        }
     }
 }
