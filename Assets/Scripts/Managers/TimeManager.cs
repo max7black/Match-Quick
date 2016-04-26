@@ -12,7 +12,7 @@ public class TimeManager : MonoBehaviour {
     void Start()
     {
         text = GetComponent<Text>();
-        timeLeft = 5.00f;  // initialize score to 0
+        timeLeft = 20.00f;  // initialize score to 0
     }
 
     // Update is called once per frame
