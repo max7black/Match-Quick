@@ -7,6 +7,9 @@ public class Move : MonoBehaviour {
   //  private float[] velocities = { -0.08f, 0.08f };   // array of possible intial x or y velocities
     private float x_velocity;       // speed of object in the x direction
     private float y_velocity;       // speed of object in the y direction
+    private int index;
+    public Vector3 cameraPos;
+
 
     void Start()
     {
@@ -14,12 +17,26 @@ public class Move : MonoBehaviour {
         y_velocity = Random.Range(-0.10f, 0.10f);
  //       x_velocity = velocities[Random.Range(0, velocities.Length)];
  //       y_velocity = velocities[Random.Range(0, velocities.Length)];
+        for (int i = 0; i < CreateObject.numberOfObjects; i++)
+        {
+            if (name == CreateObject.matchObjects[i].name)
+            {
+                index = CreateObject.matchObjects.IndexOf(gameObject);
+            }
+        }
+        cameraPos = MatchManager.cameraPos;
     }
 
     // Moves on the screen the object based on the x_velocity and y_velocity
     void Update()
     {
         transform.position = new Vector3(transform.position.x + x_velocity, transform.position.y + y_velocity, transform.position.z);
+
+        if (CreateObject.inGoal[index] == true)
+        {
+            transform.position = new Vector3(cameraPos.x,cameraPos.y, transform.position.z);
+            CreateObject.inGoal[index] = false;
+        }
         
     }
 
@@ -33,13 +50,11 @@ public class Move : MonoBehaviour {
         if (name == "RightCollider" || name == "LeftCollider")
         {
             x_velocity *= -1;
-            Debug.Log("Right/left colllision");
 
         }
         if (name == "TopCollider" || name == "BottomCollider")
         {
             y_velocity *= -1;
-            Debug.Log("top/bottom colllision");
         }
         /*
         if (tag == "Match" || tag == "NotMatch")

@@ -14,6 +14,7 @@ public class CreateObject : MonoBehaviour
     private int theMatchIndex;
     public static List<Sprite> sprite = new List<Sprite>();                                                // variable for the sprite we want
     public static List<GameObject> matchObjects = new List<GameObject>();  // variable for the object we are creating
+    public static List<bool> inGoal = new List<bool>();
     public static GameObject theMatch;
     private string[] spriteLocations = { "Sprites/Squares/Red-square", "Sprites/Squares/Blue-square",       // These are the locations of our sprite images
         "Sprites/Squares/Green-square", "Sprites/Squares/Yellow-square", "Sprites/Squares/Orange-square"};
@@ -40,6 +41,10 @@ public class CreateObject : MonoBehaviour
         // initalize the object 
         for (int i = 0; i < numberOfObjects; i++)
         {
+            // Set all of the inGoal lists to bool
+            inGoal.Add(new bool());
+            inGoal[i] = false;
+
             matchObjects.Add(new GameObject());
             // Name our objects
             matchObjects[i].name = "Object " + i;
@@ -74,9 +79,11 @@ public class CreateObject : MonoBehaviour
             {
                 matchObjects[i].tag = "NotMatch";
             }
+
+            Debug.Log("object" + matchObjects[i].name);
             
         }
-
+        Debug.Log("I'm out of the loop");
         // Choose a random object to be the Match
         matchObjects[theMatchIndex].tag = "Match";
 
