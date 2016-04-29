@@ -11,12 +11,12 @@ public class CreateObject : MonoBehaviour
     public Vector2 screenSize;
     public Vector3 cameraPos;
     private float scale;
-    private int theMatchIndex;
+    private static int theMatchIndex;
     public static List<Sprite> sprite = new List<Sprite>();                                                // variable for the sprite we want
     public static List<GameObject> matchObjects = new List<GameObject>();  // variable for the object we are creating
     public static List<bool> inGoal = new List<bool>();
     public static GameObject theMatch;
-    private string[] spriteLocations = { "Sprites/Squares/Red-square", "Sprites/Squares/Blue-square",       // These are the locations of our sprite images
+    public static List<string> spriteLocations = new List<string> { "Sprites/Squares/Red-square", "Sprites/Squares/Blue-square",       // These are the locations of our sprite images
         "Sprites/Squares/Green-square", "Sprites/Squares/Yellow-square", "Sprites/Squares/Orange-square"};
 
     void Awake()

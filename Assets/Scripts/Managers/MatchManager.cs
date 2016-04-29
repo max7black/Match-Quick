@@ -6,6 +6,7 @@ public class MatchManager : MonoBehaviour {
     private int index;
     private int theMatchIndex;       // random number that will decide the new object that has the tag "Match"
     public static Vector3 cameraPos;
+    private Sprite temp;
     public float colDepth = 4f;
     public float zPosition = 0f;
     public Vector2 screenSize;
@@ -15,10 +16,11 @@ public class MatchManager : MonoBehaviour {
 
 
     // Use this for initialization
-    void Awake()
+    void Start()
     {
-        screenSize = gameObject.GetComponent<Boundary>().screenSize;
-        cameraPos = gameObject.GetComponent<Boundary>().cameraPos;
+        cameraPos = Camera.main.transform.position;
+        screenSize.x = Vector2.Distance(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0))) * 0.5f;
+        screenSize.y = Vector2.Distance(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height))) * 0.5f;
         scale = screenSize.x / screenSize.y;
     }
 
@@ -35,32 +37,9 @@ public class MatchManager : MonoBehaviour {
                 ScoreManager.score++;
             }  
             // Multiply the current score by timeLeft
-            ScoreManager.score *= ((int)((TimeManager.timeLeft)));
+            ScoreManager.score += ((int)((TimeManager.timeLeft)));
 
-            // Removes object from the list and destorys the object 
-            removedIndex = CreateObject.matchObjects.IndexOf(collider2D.gameObject);
-            CreateObject.inGoal[removedIndex] = true;
-                
-            CreateObject.matchObjects.RemoveAt(removedIndex);
-//            CreateObject.sprite.RemoveAt(removedIndex);
-//            CreateObject.numberOfObjects -= 1;
-            Destroy(collider2D.gameObject);
-
-            //Adds a new object back in
-            CreateObject.matchObjects.Add(new GameObject());
-            index = CreateObject.matchObjects.Count - 1;
-            CreateObject.matchObjects[index].name = "Object" + index;
-            CreateObject.matchObjects[index].AddComponent<SpriteRenderer>();
-            CreateObject.matchObjects[index].GetComponent<SpriteRenderer>().sprite = CreateObject.sprite[removedIndex];  
-            CreateObject.matchObjects[index].transform.position = new Vector3(Random.Range(cameraPos.x - (3 * screenSize.x / 4), cameraPos.x + (3 * screenSize.x / 4)),
-                Random.Range(cameraPos.y - (3 * screenSize.y / 4), cameraPos.y), 0);
-            CreateObject.matchObjects[index].transform.localScale = new Vector3(scale / CreateObject.numberOfObjects, scale / CreateObject.numberOfObjects, colDepth);
-            CreateObject.matchObjects[index].AddComponent<PolygonCollider2D>();
-            CreateObject.matchObjects[index].AddComponent<Rigidbody2D>();
-            CreateObject.matchObjects[index].GetComponent<Rigidbody2D>().gravityScale = 0;
-            CreateObject.matchObjects[index].AddComponent<Move>();
-            CreateObject.matchObjects[index].AddComponent<ClickAndDrag>();
-
+            DestoryAndRespawn(collider2D);
 
             TimeManager.timeLeft += 1.00f;       // reset the time after a match is found
 
@@ -71,18 +50,53 @@ public class MatchManager : MonoBehaviour {
                 {
                     CreateObject.matchObjects[i].tag = "Match";
                 }
+                if (i == index && i != theMatchIndex)
+                {
+                    CreateObject.matchObjects[i].tag = "NotMatch";
+                }
             }
             CreateObject.theMatch.GetComponent<SpriteRenderer>().sprite = CreateObject.sprite[theMatchIndex];
         }
 
         // If object is not a match, but is in the goal then teleport it back to the middle of the 
-        if (collider2D.gameObject.tag == "NotMatch")
+        else if (collider2D.gameObject.tag == "NotMatch")
         {
-       
-            index = CreateObject.matchObjects.IndexOf(collider2D.gameObject);
-            CreateObject.matchObjects[index].transform.position = new Vector3(cameraPos.x, cameraPos.y, 0);
+            DestoryAndRespawn(collider2D);
+            CreateObject.matchObjects[index].tag = "NotMatch";
+            
         }
 
+    }
+
+    void DestoryAndRespawn(Collider2D collider2D)
+    {
+        // Removes object from the list and destorys the object 
+        removedIndex = CreateObject.matchObjects.IndexOf(collider2D.gameObject);
+        CreateObject.inGoal[removedIndex] = true;
+        CreateObject.matchObjects.RemoveAt(removedIndex);
+        Destroy(collider2D.gameObject);
+
+        //Adds a new object back in
+        CreateObject.matchObjects.Add(new GameObject());
+        index = CreateObject.matchObjects.Count - 1;
+
+        //Switch the Sprite list to the new order 
+        temp = CreateObject.sprite[removedIndex];
+        CreateObject.sprite.RemoveAt(removedIndex);
+        CreateObject.sprite.Add(temp);
+
+        //Fill in new objects old properites
+        CreateObject.matchObjects[index].name = "Object " + removedIndex;
+        CreateObject.matchObjects[index].AddComponent<SpriteRenderer>();
+        CreateObject.matchObjects[index].GetComponent<SpriteRenderer>().sprite = CreateObject.sprite[index];
+        CreateObject.matchObjects[index].transform.position = new Vector3(Random.Range(cameraPos.x - (3 * screenSize.x / 4), cameraPos.x + (3 * screenSize.x / 4)),
+            Random.Range(cameraPos.y - (3 * screenSize.y / 4), cameraPos.y), 0);
+        CreateObject.matchObjects[index].transform.localScale = new Vector3(scale / CreateObject.numberOfObjects, scale / CreateObject.numberOfObjects, colDepth);
+        CreateObject.matchObjects[index].AddComponent<PolygonCollider2D>();
+        CreateObject.matchObjects[index].AddComponent<Rigidbody2D>();
+        CreateObject.matchObjects[index].GetComponent<Rigidbody2D>().gravityScale = 0;
+        CreateObject.matchObjects[index].AddComponent<Move>();
+        CreateObject.matchObjects[index].AddComponent<ClickAndDrag>();
     }
 
 }
