@@ -71,8 +71,8 @@ public class CreateObject2 : MonoBehaviour
             matchObjects[i].AddComponent<Rigidbody2D>();
             matchObjects[i].GetComponent<Rigidbody2D>().gravityScale = 0;
 
-            // Add the Move script to our object
-            matchObjects[i].AddComponent<Move>();
+            // Add the Move2 script to our object
+            matchObjects[i].AddComponent<Move2>();
 
             // Add the ClickAndDrag script to our object
             matchObjects[i].AddComponent<ClickAndDrag>();
@@ -90,20 +90,18 @@ public class CreateObject2 : MonoBehaviour
 
         // Display all the objects that aren't the match at the top of the screen
         for (int i = 0; i < numberOfObjects; i++)
-        {
-            if (matchObjects[i].tag == "NotMatch")
+        {            
+            theMatch.Add(new GameObject());
+            theMatch[i].name = "Display object" + i;
+            theMatch[i].transform.position = new Vector3(-screenSize.x / 2 + (i * scale), cameraPos.y + screenSize.y - ((cameraPos.y + screenSize.y - colDepth / 4) - colDepth / 2), 0);      // put theMatch
+            theMatch[i].transform.localScale = new Vector3(scale / numberOfObjects, scale / numberOfObjects, colDepth);
+            theMatch[i].AddComponent<SpriteRenderer>();
+            theMatch[i].GetComponent<SpriteRenderer>().sprite = sprite[i];      // put the correct sprite on the match
+            if(matchObjects[i].tag == "Match")
             {
-                theMatch.Add(new GameObject());
-                theMatch[i].name = "Display object" + i;
-                theMatch[i].AddComponent<SpriteRenderer>();
-                theMatch[i].GetComponent<SpriteRenderer>().sprite = sprite[i];                             // put the correct sprite on the match
-                theMatch[i].transform.position = new Vector3(-screenSize.x / 2 + (i * scale), cameraPos.y + screenSize.y - ((cameraPos.y + screenSize.y - colDepth / 4) - colDepth / 2), 0);      // put theMatch
-                theMatch[i].transform.localScale = new Vector3(scale / numberOfObjects, scale / numberOfObjects, colDepth);
+                theMatch[i].GetComponent<SpriteRenderer>().enabled = false;
             }
-            else
-            {
-                theMatch.Add(new GameObject());
-            }
+
         }        
     }
 }

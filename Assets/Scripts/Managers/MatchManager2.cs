@@ -13,10 +13,7 @@ public class MatchManager2 : MonoBehaviour
     public Vector2 screenSize;
     private float scale;
 
-
-
-
-    // Use this for initialization
+    // Intialize the camear position and screen size variables, as well as setting the scale for the mathing objects.
     void Start()
     {
         cameraPos = Camera.main.transform.position;
@@ -56,7 +53,8 @@ public class MatchManager2 : MonoBehaviour
 
                 }
             }
-            CreateObject2.theMatch[removedIndex].GetComponent<SpriteRenderer>().sprite = CreateObject2.sprite[theMatchIndex];
+            CreateObject2.theMatch[removedIndex].GetComponent<SpriteRenderer>().enabled = true;
+            CreateObject2.theMatch[theMatchIndex].GetComponent<SpriteRenderer>().enabled = false;
         }
 
         // If object is not a match, but is in the goal then teleport it back to the middle of the 
@@ -94,8 +92,7 @@ public class MatchManager2 : MonoBehaviour
         CreateObject2.matchObjects[index].AddComponent<PolygonCollider2D>();
         CreateObject2.matchObjects[index].AddComponent<Rigidbody2D>();
         CreateObject2.matchObjects[index].GetComponent<Rigidbody2D>().gravityScale = 0;
-        CreateObject2.matchObjects[index].AddComponent<Move>();
+        CreateObject2.matchObjects[index].AddComponent<Move2>();
         CreateObject2.matchObjects[index].AddComponent<ClickAndDrag>();
-
     }
 }
