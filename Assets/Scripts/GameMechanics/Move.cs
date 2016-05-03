@@ -9,6 +9,8 @@ public class Move : MonoBehaviour {
     private float y_velocity;       // speed of object in the y direction
     private int index;
     public Vector3 cameraPos;
+    public AudioClip bounce;
+    AudioSource audio;
 
 
     void Start()
@@ -25,6 +27,7 @@ public class Move : MonoBehaviour {
             }
         }
         cameraPos = MatchManager.cameraPos;
+        audio = GetComponent<AudioSource>();
     }
 
     // Moves on the screen the object based on the x_velocity and y_velocity
@@ -50,11 +53,13 @@ public class Move : MonoBehaviour {
         if (name == "RightCollider" || name == "LeftCollider")
         {
             x_velocity *= -1;
+            audio.PlayOneShot(bounce);
 
         }
         if (name == "TopCollider" || name == "BottomCollider")
         {
             y_velocity *= -1;
+            audio.PlayOneShot(bounce);
         }
         /*
         if (tag == "Match" || tag == "NotMatch")
