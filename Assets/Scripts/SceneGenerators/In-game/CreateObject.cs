@@ -78,12 +78,8 @@ public class CreateObject : MonoBehaviour
             if (i != theMatchIndex)
             {
                 matchObjects[i].tag = "NotMatch";
-            }
-
-            Debug.Log("object" + matchObjects[i].name);
-            
+            }          
         }
-        Debug.Log("I'm out of the loop");
         // Choose a random object to be the Match
         matchObjects[theMatchIndex].tag = "Match";
 

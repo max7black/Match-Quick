@@ -25,7 +25,7 @@ public class Move2 : MonoBehaviour
                 index = CreateObject2.matchObjects.IndexOf(gameObject);
             }
         }
-        cameraPos = MatchManager.cameraPos;
+        cameraPos = MatchManager2.cameraPos;
     }
 
     // Moves on the screen the object based on the x_velocity and y_velocity

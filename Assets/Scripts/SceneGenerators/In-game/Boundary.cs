@@ -77,7 +77,7 @@ public class Boundary : MonoBehaviour {
         goal.GetComponent<BoxCollider2D>().isTrigger = true;
 
         // Add the script MatchFound to our goal game object
-        goal.gameObject.AddComponent<MatchManager2>();
+        goal.gameObject.AddComponent<MatchManager>();
             
     }
 
