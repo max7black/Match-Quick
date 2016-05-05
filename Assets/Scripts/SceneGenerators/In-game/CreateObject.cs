@@ -12,6 +12,7 @@ public class CreateObject : MonoBehaviour
     public Vector3 cameraPos;
     private float scale;
     private static int theMatchIndex;
+    AudioSource audio;
     public static List<Sprite> sprite = new List<Sprite>();                                                // variable for the sprite we want
     public static List<GameObject> matchObjects = new List<GameObject>();  // variable for the object we are creating
     public static List<bool> inGoal = new List<bool>();
@@ -29,6 +30,7 @@ public class CreateObject : MonoBehaviour
         }
         // Set theMatchIndex equal to random nubmer between 0 and the number of objects
         theMatchIndex = Random.Range(0, numberOfObjects);
+
     }
 
     void Start()
@@ -72,6 +74,11 @@ public class CreateObject : MonoBehaviour
 
             // Add the Move script to our object
             matchObjects[i].AddComponent<Move>();
+
+            // Add an audio component and attch the bounce_sound clip
+            audio = matchObjects[i].AddComponent<AudioSource>();
+            audio.clip = Resources.Load("Sounds/bounce_sound") as AudioClip;
+
 
             // Add the ClickAndDrag script to our object
             matchObjects[i].AddComponent<ClickAndDrag>();

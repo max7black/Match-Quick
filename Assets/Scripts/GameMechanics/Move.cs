@@ -27,7 +27,7 @@ public class Move : MonoBehaviour {
             }
         }
         cameraPos = MatchManager.cameraPos;
-        audio = GetComponent<AudioSource>();
+        audio = CreateObject.matchObjects[0].GetComponent<AudioSource>();
     }
 
     // Moves on the screen the object based on the x_velocity and y_velocity
@@ -53,13 +53,12 @@ public class Move : MonoBehaviour {
         if (name == "RightCollider" || name == "LeftCollider")
         {
             x_velocity *= -1;
-            audio.PlayOneShot(bounce);
-
+            audio.Play();
         }
         if (name == "TopCollider" || name == "BottomCollider")
         {
             y_velocity *= -1;
-            audio.PlayOneShot(bounce);
+            audio.Play();
         }
         /*
         if (tag == "Match" || tag == "NotMatch")

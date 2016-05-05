@@ -11,6 +11,7 @@ public class CreateObject2 : MonoBehaviour
     public Vector2 screenSize;
     public Vector3 cameraPos;
     private float scale;
+    AudioSource audio;
     private static int theMatchIndex;
     public static List<Sprite> sprite = new List<Sprite>();                                                // variable for the sprite we want
     public static List<GameObject> matchObjects = new List<GameObject>();  // variable for the object we are creating
@@ -74,6 +75,10 @@ public class CreateObject2 : MonoBehaviour
             // Add the Move2 script to our object
             matchObjects[i].AddComponent<Move2>();
 
+            // Add an audio component and attch the bounce_sound clip
+            audio = matchObjects[i].AddComponent<AudioSource>();
+            audio.clip = Resources.Load("Sounds/bounce_sound") as AudioClip;
+            
             // Add the ClickAndDrag script to our object
             matchObjects[i].AddComponent<ClickAndDrag>();
             if (i != theMatchIndex)
