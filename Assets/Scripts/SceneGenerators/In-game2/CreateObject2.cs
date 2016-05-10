@@ -106,6 +106,8 @@ public class CreateObject2 : MonoBehaviour
             {
                 theMatch[i].GetComponent<SpriteRenderer>().enabled = false;
             }
+            audio = theMatch[i].AddComponent<AudioSource>();
+            audio.clip = Resources.Load("Sounds/match_ding") as AudioClip;
 
         }        
     }

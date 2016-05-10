@@ -11,8 +11,7 @@ public class MatchManager : MonoBehaviour {
     public float zPosition = 0f;
     public Vector2 screenSize;
     private float scale;
-
-
+    AudioSource audio;
 
 
     // Use this for initialization
@@ -22,6 +21,7 @@ public class MatchManager : MonoBehaviour {
         screenSize.x = Vector2.Distance(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0))) * 0.5f;
         screenSize.y = Vector2.Distance(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height))) * 0.5f;
         scale = screenSize.x / screenSize.y;
+        audio = CreateObject.theMatch.GetComponent<AudioSource>();
     }
 
     // If an object enters the goal, then check if it's the match. If so then destroy the object and add 1 to the score
@@ -54,6 +54,7 @@ public class MatchManager : MonoBehaviour {
                 }
             }
             CreateObject.theMatch.GetComponent<SpriteRenderer>().sprite = CreateObject.sprite[theMatchIndex];
+            audio.clip = Resources.Load("Sounds/match_ding") as AudioClip;      // Load clip for match 
         }
 
         // If object is not a match, but is in the goal then teleport it back to the middle of the 
@@ -61,7 +62,9 @@ public class MatchManager : MonoBehaviour {
         {
             DestoryAndRespawn(collider2D);
             CreateObject.matchObjects[index].tag = "NotMatch";
+            audio.clip = Resources.Load("Sounds/Wrong_sound") as AudioClip;      // Load clip for wrong sound
         }
+        audio.Play();
     }
 
     void DestoryAndRespawn(Collider2D collider2D)

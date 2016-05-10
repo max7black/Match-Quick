@@ -97,9 +97,8 @@ public class CreateObject : MonoBehaviour
         theMatch.GetComponent<SpriteRenderer>().sprite = sprite[theMatchIndex];                             // put the correct sprite on the match
         theMatch.transform.position = new Vector3(cameraPos.x, cameraPos.y + screenSize.y - (Boundary.goal.transform.position.y - colDepth/2), 0);      // put theMatch in the middle of the goal
         theMatch.transform.localScale = new Vector3(scale / numberOfObjects, scale / numberOfObjects, colDepth);
-
-
-
+        audio = theMatch.AddComponent<AudioSource>();
+        audio.clip = Resources.Load("Sounds/match_ding") as AudioClip;
     }
 
 }

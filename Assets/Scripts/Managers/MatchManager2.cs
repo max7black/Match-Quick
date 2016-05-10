@@ -12,6 +12,7 @@ public class MatchManager2 : MonoBehaviour
     public float zPosition = 0f;
     public Vector2 screenSize;
     private float scale;
+    AudioSource audio;
 
     // Intialize the camear position and screen size variables, as well as setting the scale for the mathing objects.
     void Start()
@@ -55,6 +56,8 @@ public class MatchManager2 : MonoBehaviour
             }
             CreateObject2.theMatch[removedIndex].GetComponent<SpriteRenderer>().enabled = true;
             CreateObject2.theMatch[theMatchIndex].GetComponent<SpriteRenderer>().enabled = false;
+        //    audio = CreateObject2.theMatch[theMatchIndex].GetComponent<AudioSource>();
+        //    audio.clip = Resources.Load("Sounds/match_ding") as AudioClip;      // Load clip for match 
         }
 
         // If object is not a match, but is in the goal then teleport it back to the middle of the 
@@ -62,7 +65,10 @@ public class MatchManager2 : MonoBehaviour
         {
             DestoryAndRespawn(collider2D);
             CreateObject2.matchObjects[index].tag = "NotMatch";
+       //     audio.clip = Resources.Load("Sounds/Wrong_sound") as AudioClip;      // Load clip for wrong sound
+        //    audio = CreateObject2.theMatch[index].GetComponent<AudioSource>();
         }
+      //  audio.Play();
     }
 
     void DestoryAndRespawn(Collider2D collider2D)
@@ -94,5 +100,6 @@ public class MatchManager2 : MonoBehaviour
         CreateObject2.matchObjects[index].GetComponent<Rigidbody2D>().gravityScale = 0;
         CreateObject2.matchObjects[index].AddComponent<Move2>();
         CreateObject2.matchObjects[index].AddComponent<ClickAndDrag>();
+    //    CreateObject2.matchObjects[index].AddComponent<AudioSource>();
     }
 }
