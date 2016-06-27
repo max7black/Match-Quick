@@ -78,6 +78,7 @@ public class CreateObject : MonoBehaviour
             // Add an audio component and attch the bounce_sound clip
             audio = matchObjects[i].AddComponent<AudioSource>();
             audio.clip = Resources.Load("Sounds/bounce_sound") as AudioClip;
+            audio.volume = audio.volume * SoundManager.hSliderValue;
 
 
             // Add the ClickAndDrag script to our object
@@ -99,6 +100,7 @@ public class CreateObject : MonoBehaviour
         theMatch.transform.localScale = new Vector3(scale / numberOfObjects, scale / numberOfObjects, colDepth);
         audio = theMatch.AddComponent<AudioSource>();
         audio.clip = Resources.Load("Sounds/match_ding") as AudioClip;
+        audio.volume = audio.volume * SoundManager.hSliderValue;
     }
 
 }

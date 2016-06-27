@@ -78,7 +78,8 @@ public class CreateObject2 : MonoBehaviour
             // Add an audio component and attch the bounce_sound clip
             audio = matchObjects[i].AddComponent<AudioSource>();
             audio.clip = Resources.Load("Sounds/bounce_sound") as AudioClip;
-            
+            audio.volume = audio.volume * SoundManager.hSliderValue;
+
             // Add the ClickAndDrag script to our object
             matchObjects[i].AddComponent<ClickAndDrag>();
             if (i != theMatchIndex)
@@ -108,6 +109,7 @@ public class CreateObject2 : MonoBehaviour
             }
             audio = theMatch[i].AddComponent<AudioSource>();
             audio.clip = Resources.Load("Sounds/match_ding") as AudioClip;
+            audio.volume = audio.volume * SoundManager.hSliderValue;
 
         }        
     }
