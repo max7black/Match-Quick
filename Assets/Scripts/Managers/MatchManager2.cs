@@ -26,8 +26,11 @@ public class MatchManager2 : MonoBehaviour
     // If an object enters the goal, then check if it's the match. If so then destroy the object and add 1 to the score
     void OnTriggerEnter2D(Collider2D collider2D)
     {
+        // get the audio source for the current match
+        
         if (collider2D.gameObject.tag == "Match")
         {
+            audio = CreateObject2.theMatch[theMatchIndex].GetComponent<AudioSource>();
             // If the score is the intial 0 then we need to set it to 1, so that when we multiply by timeLeft we don't get 0.
             if (ScoreManager.score == 0)
             {
@@ -56,8 +59,7 @@ public class MatchManager2 : MonoBehaviour
             }
             CreateObject2.theMatch[removedIndex].GetComponent<SpriteRenderer>().enabled = true;
             CreateObject2.theMatch[theMatchIndex].GetComponent<SpriteRenderer>().enabled = false;
-        //    audio = CreateObject2.theMatch[theMatchIndex].GetComponent<AudioSource>();
-        //    audio.clip = Resources.Load("Sounds/match_ding") as AudioClip;      // Load clip for match 
+            audio.PlayOneShot(Resources.Load("Sounds/match_ding") as AudioClip, SoundManager.hSliderValue);
         }
 
         // If object is not a match, but is in the goal then teleport it back to the middle of the 
@@ -65,10 +67,17 @@ public class MatchManager2 : MonoBehaviour
         {
             DestoryAndRespawn(collider2D);
             CreateObject2.matchObjects[index].tag = "NotMatch";
-       //     audio.clip = Resources.Load("Sounds/Wrong_sound") as AudioClip;      // Load clip for wrong sound
-        //    audio = CreateObject2.theMatch[index].GetComponent<AudioSource>();
+            if (theMatchIndex != 0)
+            {
+                audio = CreateObject2.theMatch[0].GetComponent<AudioSource>();
+            }
+            else
+            {
+                audio = CreateObject2.theMatch[1].GetComponent<AudioSource>();
+            }
+            audio.PlayOneShot(Resources.Load("Sounds/Wrong_sound") as AudioClip, SoundManager.hSliderValue);
         }
-      //  audio.Play();
+
     }
 
     void DestoryAndRespawn(Collider2D collider2D)
@@ -100,8 +109,5 @@ public class MatchManager2 : MonoBehaviour
         CreateObject2.matchObjects[index].GetComponent<Rigidbody2D>().gravityScale = 0;
         CreateObject2.matchObjects[index].AddComponent<Move2>();
         CreateObject2.matchObjects[index].AddComponent<ClickAndDrag>();
-        audio = CreateObject2.matchObjects[index].AddComponent<AudioSource>();
-        audio.clip = Resources.Load("Sounds/match_ding") as AudioClip;
-        audio.volume = audio.volume * SoundManager.hSliderValue;
     }
 }
