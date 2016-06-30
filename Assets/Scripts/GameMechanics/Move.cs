@@ -9,7 +9,7 @@ public class Move : MonoBehaviour {
     private float y_velocity;       // speed of object in the y direction
     private int index;
     public Vector3 cameraPos;
-    public new AudioSource bounceSound;
+    public AudioSource bounceSound;
 
 
     void Start()
@@ -25,8 +25,6 @@ public class Move : MonoBehaviour {
             }
         }
         cameraPos = MatchManager.cameraPos;
-        bounceSound = GetComponent<AudioSource>();
-        bounceSound.clip = Resources.Load("Sounds/bounce_sound") as AudioClip;
     }
 
     // Moves on the screen the object based on the x_velocity and y_velocity
@@ -47,17 +45,18 @@ public class Move : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision)
     {
         var name = collision.gameObject.name;
-        var tag = collision.gameObject.tag;
+
+        bounceSound = collision.gameObject.GetComponent<AudioSource>();
 
         if (name == "RightCollider" || name == "LeftCollider")
         {
             x_velocity *= -1;
-           // bounceSound.Play();
+            bounceSound.PlayOneShot(Resources.Load("Sounds/bounce_sound") as AudioClip, SoundManager.hSliderValue);
         }
         if (name == "TopCollider" || name == "BottomCollider")
         {
             y_velocity *= -1;
-          //  bounceSound.Play();
+            bounceSound.PlayOneShot(Resources.Load("Sounds/bounce_sound") as AudioClip, SoundManager.hSliderValue);
         }
     }
 }

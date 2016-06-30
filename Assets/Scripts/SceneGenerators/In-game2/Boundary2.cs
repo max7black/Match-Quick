@@ -50,6 +50,13 @@ public class Boundary2 : MonoBehaviour
         leftCollider.gameObject.AddComponent<BoxCollider2D>();
         goal.gameObject.AddComponent<BoxCollider2D>();
 
+        //Add AudioSources 
+        topCollider.gameObject.AddComponent<AudioSource>();
+        bottomCollider.gameObject.AddComponent<AudioSource>();
+        rightCollider.gameObject.AddComponent<AudioSource>();
+        leftCollider.gameObject.AddComponent<AudioSource>();
+        goal.gameObject.AddComponent<AudioSource>();
+
         //Make them the child of whatever object this script is on, preferably on the Camera so the objects move with the camera without extra scripting
         topCollider.transform.parent = transform;
         bottomCollider.parent = transform;

@@ -5,15 +5,15 @@ using System.Collections;
 
 public class CreateObject : MonoBehaviour
 {
-    public static int numberOfObjects = 5;          // number of the objects we want to create to be matched
+    public static int numberOfObjects = 5;                                   // number of the objects we want to create to be matched
     public float colDepth = 4f;
     public float zPosition = 0f;
     public Vector2 screenSize;
     public Vector3 cameraPos;
     private float scale;
     private static int theMatchIndex;
-    public new AudioSource audio;
-    public static List<Sprite> sprite = new List<Sprite>();                                                // variable for the sprite we want
+    public new AudioSource audio;                                           // the source of where the audio will come from
+    public static List<Sprite> sprite = new List<Sprite>();                 // variable for the sprite we want
     public static List<GameObject> matchObjects = new List<GameObject>();  // variable for the object we are creating
     public static List<bool> inGoal = new List<bool>();
     public static GameObject theMatch;
@@ -75,12 +75,6 @@ public class CreateObject : MonoBehaviour
 
             // Add the Move script to our object
             matchObjects[i].AddComponent<Move>();
-
-            // Add an audio component and attch the bounce_sound clip
-            audio = matchObjects[i].AddComponent<AudioSource>();
-            audio.clip = Resources.Load("Sounds/bounce_sound") as AudioClip;
-            audio.volume = audio.volume * SoundManager.hSliderValue;
-
 
             // Add the ClickAndDrag script to our object
             matchObjects[i].AddComponent<ClickAndDrag>();
