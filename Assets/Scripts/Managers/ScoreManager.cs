@@ -6,7 +6,6 @@ public class ScoreManager : MonoBehaviour
 {
 
     public static int score;
-    
     Text text;
 
     // Use this for initialization

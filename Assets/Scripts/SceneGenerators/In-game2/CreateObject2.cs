@@ -11,7 +11,7 @@ public class CreateObject2 : MonoBehaviour
     public Vector2 screenSize;
     public Vector3 cameraPos;
     private float scale;
-    public new AudioSource audio;
+    AudioSource audio;
     private static int theMatchIndex;
     public static List<Sprite> sprite = new List<Sprite>();                                                // variable for the sprite we want
     public static List<GameObject> matchObjects = new List<GameObject>();  // variable for the object we are creating

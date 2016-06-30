@@ -11,7 +11,7 @@ public class MatchManager : MonoBehaviour {
     public float zPosition = 0f;
     public Vector2 screenSize;
     private float scale;
-    public new AudioSource audio;
+    AudioSource audio;
 
 
     // Use this for initialization
@@ -32,11 +32,10 @@ public class MatchManager : MonoBehaviour {
             // If the score is the intial 0 then we need to set it to 1, so that when we multiply by timeLeft we don't get 0.
             if (ScoreManager.score == 0)        
             {
-                ScoreManager.score+=10;
+                ScoreManager.score++;
             }  
             // Multiply the current score by timeLeft
-            ScoreManager.score += ((int)((20 - (TimeManager.lastMatchTime - TimeManager.timeLeft))));
-            TimeManager.lastMatchTime = TimeManager.timeLeft;
+            ScoreManager.score += ((int)((TimeManager.timeLeft)));
 
             DestoryAndRespawn(collider2D);
 
@@ -65,7 +64,6 @@ public class MatchManager : MonoBehaviour {
             CreateObject.matchObjects[index].tag = "NotMatch";
             audio.clip = Resources.Load("Sounds/Wrong_sound") as AudioClip;      // Load clip for wrong sound
         }
-        audio.volume = audio.volume * SoundManager.hSliderValue;
         audio.Play();
     }
 
@@ -98,8 +96,5 @@ public class MatchManager : MonoBehaviour {
         CreateObject.matchObjects[index].GetComponent<Rigidbody2D>().gravityScale = 0;
         CreateObject.matchObjects[index].AddComponent<Move>();
         CreateObject.matchObjects[index].AddComponent<ClickAndDrag>();
-        audio = CreateObject.matchObjects[index].AddComponent<AudioSource>();
-        audio.clip = Resources.Load("Sounds/match_ding") as AudioClip;
-        audio.volume = audio.volume * SoundManager.hSliderValue;
     }
 }

@@ -12,7 +12,7 @@ public class MatchManager2 : MonoBehaviour
     public float zPosition = 0f;
     public Vector2 screenSize;
     private float scale;
-    public new AudioSource audio;
+    AudioSource audio;
 
     // Intialize the camear position and screen size variables, as well as setting the scale for the mathing objects.
     void Start()
@@ -100,8 +100,6 @@ public class MatchManager2 : MonoBehaviour
         CreateObject2.matchObjects[index].GetComponent<Rigidbody2D>().gravityScale = 0;
         CreateObject2.matchObjects[index].AddComponent<Move2>();
         CreateObject2.matchObjects[index].AddComponent<ClickAndDrag>();
-        audio = CreateObject2.matchObjects[index].AddComponent<AudioSource>();
-        audio.clip = Resources.Load("Sounds/match_ding") as AudioClip;
-        audio.volume = audio.volume * SoundManager.hSliderValue;
+    //    CreateObject2.matchObjects[index].AddComponent<AudioSource>();
     }
 }
