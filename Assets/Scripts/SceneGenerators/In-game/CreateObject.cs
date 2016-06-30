@@ -12,7 +12,7 @@ public class CreateObject : MonoBehaviour
     public Vector3 cameraPos;
     private float scale;
     private static int theMatchIndex;
-    AudioSource audio;
+    public new AudioSource audio;
     public static List<Sprite> sprite = new List<Sprite>();                                                // variable for the sprite we want
     public static List<GameObject> matchObjects = new List<GameObject>();  // variable for the object we are creating
     public static List<bool> inGoal = new List<bool>();
@@ -22,6 +22,7 @@ public class CreateObject : MonoBehaviour
 
     void Awake()
     {
+
         // load the sprite we want in our sprite variable
         for (int i = 0; i < numberOfObjects; i++)
         {
