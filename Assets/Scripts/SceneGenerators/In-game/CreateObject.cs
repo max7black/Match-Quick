@@ -22,17 +22,20 @@ public class CreateObject : MonoBehaviour
 
     void Awake()
     {
-
-        // load the sprite we want in our sprite variable
-        for (int i = 0; i < numberOfObjects; i++)
+        // load the sprite we want in our sprite variable unless they are already loaded
+        // from the last time the game was played
+        if (sprite.Count == 0)
         {
-            sprite.Add(new Sprite());
-            sprite[i] = Resources.Load<Sprite>(spriteLocations[i]);
+            for (int i = 0; i < numberOfObjects; i++)
+            {
+                sprite.Add(new Sprite());
+                sprite[i] = Resources.Load<Sprite>(spriteLocations[i]);
+            }
         }
         // Set theMatchIndex equal to random nubmer between 0 and the number of objects
         theMatchIndex = Random.Range(0, numberOfObjects);
-
     }
+
 
     void Start()
     {
@@ -48,6 +51,13 @@ public class CreateObject : MonoBehaviour
             inGoal.Add(new bool());
             inGoal[i] = false;
 
+            // If the game is being played again then we need to clear the list of matchObjects
+            // because right now they still exist and are all null
+            if (matchObjects.Count == numberOfObjects)
+            {
+                    matchObjects.Clear();
+            }
+
             matchObjects.Add(new GameObject());
             // Name our objects
             matchObjects[i].name = "Object " + i;
@@ -59,7 +69,7 @@ public class CreateObject : MonoBehaviour
 
 
             // Change the spawn location to be random in the camera view      
-            matchObjects[i].transform.position = new Vector3(Random.Range(cameraPos.x-(3*screenSize.x/4), cameraPos.x+(3*screenSize.x/4)), 
+            matchObjects[i].transform.position = new Vector3(Random.Range(cameraPos.x-(3*screenSize.x/4), cameraPos.x+(3*screenSize.x/4)),
                 Random.Range(cameraPos.y-(3*screenSize.y/4),cameraPos.y), 0);
       
 

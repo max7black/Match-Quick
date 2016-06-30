@@ -8,7 +8,6 @@ public class TimeManager : MonoBehaviour {
     public static float timeLeft;
     public static float lastMatchTime;
     Text text;
-    Scene scene;
 
     // Use this for initialization
     void Start()

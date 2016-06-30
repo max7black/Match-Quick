@@ -10,14 +10,13 @@ public class Move2 : MonoBehaviour
     private float y_velocity;       // speed of object in the y direction
     private int index;
     public Vector3 cameraPos;
-    AudioSource audio;
+    new AudioSource audio;
 
     void Start()
     {
         x_velocity = Random.Range(-0.10f, 0.10f);
         y_velocity = Random.Range(-0.10f, 0.10f);
-        //       x_velocity = velocities[Random.Range(0, velocities.Length)];
-        //       y_velocity = velocities[Random.Range(0, velocities.Length)];
+
         for (int i = 0; i < CreateObject2.numberOfObjects; i++)
         {
             if (name == CreateObject2.matchObjects[i].name)
@@ -47,7 +46,6 @@ public class Move2 : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         var name = collision.gameObject.name;
-        var tag = collision.gameObject.tag;
 
         if (name == "RightCollider" || name == "LeftCollider")
         {
@@ -59,17 +57,5 @@ public class Move2 : MonoBehaviour
             y_velocity *= -1;
             audio.Play();
         }
-        /*
-        if (tag == "Match" || tag == "NotMatch")
-        {
-            var orthogonalVector = collision.contacts[0].point - new Vector2(transform.position.x, transform.position.y);
-            var collisionAngle = Vector2.Angle(orthogonalVector, new Vector2(x_velocity, y_velocity));
-
-            x_velocity *= Mathf.Sin(collisionAngle);
-            y_velocity *= Mathf.Cos(collisionAngle);
-
-         //   Debug.Log("collision with " + collision.gameObject.name);
-        }
-        */
     }
 }
