@@ -9,16 +9,14 @@ public class Move : MonoBehaviour {
     private float y_velocity;       // speed of object in the y direction
     private int index;
     public Vector3 cameraPos;
-    public AudioClip bounce;
-    AudioSource audio;
+    public new AudioSource bounceSound;
 
 
     void Start()
     {
         x_velocity = Random.Range(-0.10f, 0.10f);
         y_velocity = Random.Range(-0.10f, 0.10f);
- //       x_velocity = velocities[Random.Range(0, velocities.Length)];
- //       y_velocity = velocities[Random.Range(0, velocities.Length)];
+
         for (int i = 0; i < CreateObject.numberOfObjects; i++)
         {
             if (name == CreateObject.matchObjects[i].name)
@@ -27,7 +25,8 @@ public class Move : MonoBehaviour {
             }
         }
         cameraPos = MatchManager.cameraPos;
-        audio = CreateObject.matchObjects[0].GetComponent<AudioSource>();
+        bounceSound = GetComponent<AudioSource>();
+        bounceSound.clip = Resources.Load("Sounds/bounce_sound") as AudioClip;
     }
 
     // Moves on the screen the object based on the x_velocity and y_velocity
@@ -53,24 +52,12 @@ public class Move : MonoBehaviour {
         if (name == "RightCollider" || name == "LeftCollider")
         {
             x_velocity *= -1;
-            audio.Play();
+           // bounceSound.Play();
         }
         if (name == "TopCollider" || name == "BottomCollider")
         {
             y_velocity *= -1;
-            audio.Play();
+          //  bounceSound.Play();
         }
-        /*
-        if (tag == "Match" || tag == "NotMatch")
-        {
-            var orthogonalVector = collision.contacts[0].point - new Vector2(transform.position.x, transform.position.y);
-            var collisionAngle = Vector2.Angle(orthogonalVector, new Vector2(x_velocity, y_velocity));
-
-            x_velocity *= Mathf.Sin(collisionAngle);
-            y_velocity *= Mathf.Cos(collisionAngle);
-
-         //   Debug.Log("collision with " + collision.gameObject.name);
-        }
-        */
     }
 }
