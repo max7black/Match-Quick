@@ -13,6 +13,7 @@ public class MatchManager2 : MonoBehaviour
     public Vector2 screenSize;
     private float scale;
     public new AudioSource audio;
+    public GameObject tempObject;
 
     // Intialize the camear position and screen size variables, as well as setting the scale for the mathing objects.
     void Start()
@@ -34,10 +35,10 @@ public class MatchManager2 : MonoBehaviour
             // If the score is the intial 0 then we need to set it to 1, so that when we multiply by timeLeft we don't get 0.
             if (ScoreManager.score == 0)
             {
-                ScoreManager.score++;
+                ScoreManager.score += 10;
             }
             // Multiply the current score by timeLeft
-            ScoreManager.score += ((int)((TimeManager.timeLeft)));
+            ScoreManager.score += (int)(20.0f - (TimeManager.lastMatchTime - TimeManager.timeLeft));
 
             DestoryAndRespawn(collider2D);
 
@@ -82,32 +83,38 @@ public class MatchManager2 : MonoBehaviour
 
     void DestoryAndRespawn(Collider2D collider2D)
     {
-        // Removes object from the list and destorys the object 
+        // Removes object from the list and destroys the object 
         removedIndex = CreateObject2.matchObjects.IndexOf(collider2D.gameObject);
-        CreateObject2.inGoal[removedIndex] = true;
+        tempObject = CreateObject2.matchObjects[removedIndex];
+        tempObject.name = "Temp";
+ //       CreateObject2.inGoal[removedIndex] = true;
         CreateObject2.matchObjects.RemoveAt(removedIndex);
-        Destroy(collider2D.gameObject);
-
-        //Adds a new object back in
-        CreateObject2.matchObjects.Add(new GameObject());
-        index = CreateObject2.matchObjects.Count - 1;
-
-        //Switch the Sprite list to the new order 
-        temp = CreateObject2.sprite[removedIndex];
-        CreateObject2.sprite.RemoveAt(removedIndex);
-        CreateObject2.sprite.Add(temp);
-
-        //Fill in new objects old properites
-        CreateObject2.matchObjects[index].name = "Object " + removedIndex;
-        CreateObject2.matchObjects[index].AddComponent<SpriteRenderer>();
-        CreateObject2.matchObjects[index].GetComponent<SpriteRenderer>().sprite = CreateObject2.sprite[index];
-        CreateObject2.matchObjects[index].transform.position = new Vector3(Random.Range(cameraPos.x - (3 * screenSize.x / 4), cameraPos.x + (3 * screenSize.x / 4)),
+        CreateObject2.matchObjects.Insert(removedIndex, tempObject);
+        CreateObject2.matchObjects[removedIndex].transform.position = new Vector3(Random.Range(cameraPos.x - (3 * screenSize.x / 4), cameraPos.x + (3 * screenSize.x / 4)),
             Random.Range(cameraPos.y - (3 * screenSize.y / 4), cameraPos.y), 0);
-        CreateObject2.matchObjects[index].transform.localScale = new Vector3(scale / CreateObject2.numberOfObjects, scale / CreateObject2.numberOfObjects, colDepth);
-        CreateObject2.matchObjects[index].AddComponent<PolygonCollider2D>();
-        CreateObject2.matchObjects[index].AddComponent<Rigidbody2D>();
-        CreateObject2.matchObjects[index].GetComponent<Rigidbody2D>().gravityScale = 0;
-        CreateObject2.matchObjects[index].AddComponent<Move2>();
-        CreateObject2.matchObjects[index].AddComponent<ClickAndDrag>();
+        //       Destroy(collider2D.gameObject);
+
+        /*        //Adds a new object back in
+                CreateObject2.matchObjects.Add(new GameObject());
+                index = CreateObject2.matchObjects.Count - 1;
+
+                //Switch the Sprite list to the new order 
+                temp = CreateObject2.sprite[removedIndex];
+                CreateObject2.sprite.RemoveAt(removedIndex);
+                CreateObject2.sprite.Add(temp);
+
+                //Fill in new objects old properites
+                CreateObject2.matchObjects[index].name = "Object " + removedIndex;
+                CreateObject2.matchObjects[index].AddComponent<SpriteRenderer>();
+                CreateObject2.matchObjects[index].GetComponent<SpriteRenderer>().sprite = CreateObject2.sprite[index];
+                CreateObject2.matchObjects[index].transform.position = new Vector3(Random.Range(cameraPos.x - (3 * screenSize.x / 4), cameraPos.x + (3 * screenSize.x / 4)),
+                    Random.Range(cameraPos.y - (3 * screenSize.y / 4), cameraPos.y), 0);
+                CreateObject2.matchObjects[index].transform.localScale = new Vector3(scale / CreateObject2.numberOfObjects, scale / CreateObject2.numberOfObjects, colDepth);
+                CreateObject2.matchObjects[index].AddComponent<PolygonCollider2D>();
+                CreateObject2.matchObjects[index].AddComponent<Rigidbody2D>();
+                CreateObject2.matchObjects[index].GetComponent<Rigidbody2D>().gravityScale = 0;
+                CreateObject2.matchObjects[index].AddComponent<Move2>();
+                CreateObject2.matchObjects[index].AddComponent<ClickAndDrag>();
+                */
     }
 }

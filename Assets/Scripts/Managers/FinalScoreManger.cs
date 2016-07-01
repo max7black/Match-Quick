@@ -5,14 +5,14 @@ using System.Collections;
 public class FinalScoreManger : MonoBehaviour
 {
 
-    public static int score;
-    Text text;
+    Text finalScoreText;
 
     // Use this for initialization
     void Start()
     {
-        text = GetComponent<Text>();
-        text.text = "Final Score: " + ScoreManager.score;
+        // Displays the Final Score on the screen
+        finalScoreText = GetComponent<Text>();
+        finalScoreText.text = "Final Score: " + ScoreManager.finalScore;
     }
 }
 
