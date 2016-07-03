@@ -33,6 +33,9 @@ public class CreateObject : MonoBehaviour
         }
         // Set theMatchIndex equal to random nubmer between 0 and the number of objects
         theMatchIndex = Random.Range(0, numberOfObjects);
+
+        //Set the game mode for the scoring system to know that it's Game mode 1
+        ScoreManager.playingGame1 = true;
     }
 
 

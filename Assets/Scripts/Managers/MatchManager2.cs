@@ -12,7 +12,7 @@ public class MatchManager2 : MonoBehaviour
     public new AudioSource audio;
     public GameObject tempObject;
 
-    // Intialize the camear position and screen size variables, as well as setting the scale for the mathing objects.
+    // Intialize the camera position and screen size variables, as well as setting the scale for the mathing objects.
     void Start()
     {
         cameraPos = Camera.main.transform.position;
@@ -78,7 +78,7 @@ public class MatchManager2 : MonoBehaviour
     {
         removedIndex = CreateObject2.matchObjects.IndexOf(collider2D.gameObject);
         tempObject = Instantiate(CreateObject2.matchObjects[removedIndex]);
-        tempObject.name = "Temp";
+        tempObject.name = CreateObject2.matchObjects[removedIndex].name;// set the name back to the orignal (otherwise it adds clone everytime it's cloned)
         CreateObject2.matchObjects.RemoveAt(removedIndex);              // remove old object from queue
         Destroy(collider2D.gameObject);                                 // Destroy the object
         CreateObject2.matchObjects.Insert(removedIndex, tempObject);    // put the new clone into old objects spot

@@ -5,15 +5,15 @@ using System.Collections;
 
 public class CreateObject2 : MonoBehaviour
 {
-    public static int numberOfObjects = 5;          // number of the objects we want to create to be matched
+    public static int numberOfObjects = 5;                                  // number of the objects we want to create to be matched
     public float colDepth = 4f;
     public float zPosition = 0f;
     public Vector2 screenSize;
     public Vector3 cameraPos;
     private float scale;
     public new AudioSource audio;
-    private static int theMatchIndex;
-    public static List<Sprite> sprite = new List<Sprite>();                                                // variable for the sprite we want
+    private static int theMatchIndex;                                       
+    public static List<Sprite> sprite = new List<Sprite>();                 // variable for the sprite we want
     public static List<GameObject> matchObjects = new List<GameObject>();  // variable for the object we are creating
     public static List<GameObject> theMatch = new List<GameObject>();
     public static List<string> spriteLocations = new List<string> { "Sprites/Squares/Red-square", "Sprites/Squares/Blue-square",       // These are the locations of our sprite images
@@ -29,6 +29,9 @@ public class CreateObject2 : MonoBehaviour
         }
         // Set theMatchIndex equal to random nubmer between 0 and the number of objects
         theMatchIndex = Random.Range(0, numberOfObjects);
+
+        //Set the game mode for the scoring system to know that it's Game mode 2
+        ScoreManager.playingGame1 = false;
     }
 
     void Start()
