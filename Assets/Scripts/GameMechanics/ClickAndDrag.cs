@@ -27,5 +27,7 @@ public class ClickAndDrag : MonoBehaviour
         Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
         transform.position = curPosition;
 
+        
+
     }
 }

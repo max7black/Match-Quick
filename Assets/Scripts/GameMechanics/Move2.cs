@@ -16,14 +16,6 @@ public class Move2 : MonoBehaviour
     {
         x_velocity = Random.Range(-0.10f, 0.10f);
         y_velocity = Random.Range(-0.10f, 0.10f);
-
-        for (int i = 0; i < CreateObject2.numberOfObjects; i++)
-        {
-            if (name == CreateObject2.matchObjects[i].name)
-            {
-                index = CreateObject2.matchObjects.IndexOf(gameObject);
-            }
-        }
         cameraPos = MatchManager2.cameraPos;
     }
 
@@ -31,13 +23,6 @@ public class Move2 : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(transform.position.x + x_velocity, transform.position.y + y_velocity, transform.position.z);
-
-        if (CreateObject2.inGoal[index] == true)
-        {
-            transform.position = new Vector3(cameraPos.x, cameraPos.y, transform.position.z);
-            CreateObject2.inGoal[index] = false;
-        }
-
     }
 
     // If we hit the left or right boundary, invert x direction.

@@ -15,7 +15,6 @@ public class CreateObject2 : MonoBehaviour
     private static int theMatchIndex;
     public static List<Sprite> sprite = new List<Sprite>();                                                // variable for the sprite we want
     public static List<GameObject> matchObjects = new List<GameObject>();  // variable for the object we are creating
-    public static List<bool> inGoal = new List<bool>();
     public static List<GameObject> theMatch = new List<GameObject>();
     public static List<string> spriteLocations = new List<string> { "Sprites/Squares/Red-square", "Sprites/Squares/Blue-square",       // These are the locations of our sprite images
         "Sprites/Squares/Green-square", "Sprites/Squares/Yellow-square", "Sprites/Squares/Orange-square"};
@@ -43,9 +42,14 @@ public class CreateObject2 : MonoBehaviour
         // initalize the object 
         for (int i = 0; i < numberOfObjects; i++)
         {
-            // Set all of the inGoal lists to bool
-            inGoal.Add(new bool());
-            inGoal[i] = false;
+            // If the game is being played again then we need to clear the list of matchObjects
+            // because right now they still exist and are all null
+            if (matchObjects.Count == numberOfObjects)
+            {
+                matchObjects.Clear();
+                theMatch.Clear();
+
+            }
 
             matchObjects.Add(new GameObject());
             // Name our objects

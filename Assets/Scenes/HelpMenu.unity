@@ -533,12 +533,11 @@ MonoBehaviour:
   m_Text: 'To move an object click and drag it.
 
 
-    In "Standard" mode move the matching object to the goal to score points and earn
+    In Standard Mode move the matching object to the goal to score points and earn
     more time.
 
 
-    In "Everything but..." mode move the object that is missing from the top to the
-    goal.
+    In Opposite Mode move the object that is missing from the top to the goal.
 
 
     Match as many objects as possible before the time runs out.

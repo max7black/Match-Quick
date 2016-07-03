@@ -72,7 +72,6 @@ public class MatchManager : MonoBehaviour {
     {
         // Removes object from the list and destorys the object 
         removedIndex = CreateObject.matchObjects.IndexOf(collider2D.gameObject);
-        CreateObject.inGoal[removedIndex] = true;
         CreateObject.matchObjects.RemoveAt(removedIndex);
         Destroy(collider2D.gameObject);
 
